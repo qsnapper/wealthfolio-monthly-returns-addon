@@ -196,6 +196,21 @@ export function yearGain(rows: MonthRow[]): number | null {
   return rows.reduce((a, r) => a + (r.gain ?? 0), 0);
 }
 
+/**
+ * The month's net deposits: money and securities moved in from outside,
+ * minus what was moved out. Unknown when Wealthfolio doesn't know a size.
+ * Value added without a recorded deposit isn't a deposit, so it isn't here.
+ */
+export function monthDeposits(row: MonthRow): number | null {
+  return row.flowUnknown ? null : row.netFlow;
+}
+
+/** The year's net deposits: its months added up, unknown if any month's is. */
+export function yearDeposits(rows: MonthRow[]): number | null {
+  if (!rows.length || rows.some((r) => r.flowUnknown)) return null;
+  return rows.reduce((a, r) => a + r.netFlow, 0);
+}
+
 /** The last month-end value of the year that Wealthfolio could value. */
 export function yearEnd(rows: MonthRow[]): number | null {
   for (let i = rows.length - 1; i >= 0; i--) {

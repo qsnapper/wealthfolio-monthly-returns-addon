@@ -1,7 +1,17 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 import type { AccountValuation } from "@wealthfolio/addon-sdk";
-import { byYear, monthlyRows, toDayPoints, yearEnd, yearGain, yearReturn, type MonthRow } from "./monthly.ts";
+import {
+  byYear,
+  monthDeposits,
+  monthlyRows,
+  toDayPoints,
+  yearDeposits,
+  yearEnd,
+  yearGain,
+  yearReturn,
+  type MonthRow,
+} from "./monthly.ts";
 
 // Run with `pnpm test`. Node runs this TypeScript file directly.
 
@@ -201,5 +211,34 @@ describe("months and years", () => {
     );
     assert.equal(years[0].months[2]?.month, "2025-03");
     assert.equal(years[1].months[11]?.month, "2024-12");
+  });
+});
+
+describe("net deposits", () => {
+  test("are deposits minus withdrawals, per month and per year", () => {
+    const m = months([
+      day("2025-01-01", 100, { in: 100 }),
+      day("2025-01-15", 150, { in: 50 }),
+      day("2025-02-10", 120, { out: 30 }),
+    ]);
+    close(monthDeposits(m["2025-01"]), 150);
+    close(monthDeposits(m["2025-02"]), -30);
+    close(yearDeposits(Object.values(m)), 120);
+  });
+
+  test("leave out value added without a deposit", () => {
+    const m = months([day("2025-01-01", 500), day("2025-01-31", 550, { in: 20 })]);
+    close(m["2025-01"].untracked, 500);
+    close(monthDeposits(m["2025-01"]), 20);
+  });
+
+  test("are unknown when Wealthfolio doesn't know a size, and so is the year", () => {
+    const m = months([
+      day("2025-01-01", 100, { in: 100 }),
+      day("2025-02-10", 1100, { source: "UNKNOWN_BOUNDARY_TRANSFER" }),
+    ]);
+    close(monthDeposits(m["2025-01"]), 100);
+    assert.equal(monthDeposits(m["2025-02"]), null);
+    assert.equal(yearDeposits(Object.values(m)), null);
   });
 });

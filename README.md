@@ -12,8 +12,8 @@ portfolio value month by month, one year per row.
   withdrawals don't affect it), or the gain or loss in money. The best and worst
   months are highlighted.
 - **Portfolio value by month** (or **Account value**, for a single account): the
-  value at each month end, or how much it changed from the month before,
-  deposits and withdrawals included.
+  value at each month end, how much it changed from the month before
+  (deposits and withdrawals included), or your net deposits for each month.
 
 Hover a month to see its start and end value, net deposits, gain or loss and
 return. Pick "All accounts" or a single account at the top right. Amounts follow

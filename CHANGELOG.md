@@ -5,6 +5,15 @@ All notable changes to Monthly Returns are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-11-07
+
+### Added
+
+- **Deposits** view in the value table: net deposits for each month (money
+  moved in minus money moved out) and for the full year. Shown in a neutral
+  colour, because a deposit isn't a gain and a withdrawal isn't a loss. A month
+  where Wealthfolio doesn't know a deposit's size shows "–".
+
 ## [1.0.0] - 2026-11-07
 
 ### Added
@@ -23,4 +32,5 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
   remembered between visits.
 - Follows Wealthfolio's privacy mode, number format and gain/loss colours.
 
+[1.1.0]: https://github.com/qsnapper/wealthfolio-monthly-returns-addon/releases/tag/v1.1.0
 [1.0.0]: https://github.com/qsnapper/wealthfolio-monthly-returns-addon/releases/tag/v1.0.0
