@@ -5,6 +5,17 @@ All notable changes to Monthly Returns are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-11-07
+
+### Fixed
+
+- Month columns now share the table width equally, so they line up from
+  table to table instead of following their widest value.
+
+### Added
+
+- A screenshot in the README.
+
 ## [1.1.0] - 2026-11-07
 
 ### Added
@@ -32,5 +43,6 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
   remembered between visits.
 - Follows Wealthfolio's privacy mode, number format and gain/loss colours.
 
+[1.1.1]: https://github.com/qsnapper/wealthfolio-monthly-returns-addon/releases/tag/v1.1.1
 [1.1.0]: https://github.com/qsnapper/wealthfolio-monthly-returns-addon/releases/tag/v1.1.0
 [1.0.0]: https://github.com/qsnapper/wealthfolio-monthly-returns-addon/releases/tag/v1.0.0

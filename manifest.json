@@ -1,7 +1,7 @@
 {
   "id": "monthly-returns-addon",
   "name": "Monthly Returns",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Monthly returns and portfolio value, one year per row",
   "author": "qsnapper",
   "main": "dist/addon.js",

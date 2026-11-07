@@ -8,6 +8,8 @@
 A [Wealthfolio](https://wealthfolio.app) add-on that shows your returns and
 portfolio value month by month, one year per row.
 
+![Monthly Returns in Wealthfolio: a table of monthly returns per year with the best and worst months highlighted, and below it the account value change per month](images/wealthfolio-monthly-returns-addon-screenshot.png)
+
 - **Monthly returns**: the time-weighted return of each month (deposits and
   withdrawals don't affect it), or the gain or loss in money. The best and worst
   months are highlighted.

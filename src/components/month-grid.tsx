@@ -14,6 +14,8 @@ import type { ReactNode } from "react";
 import type { MonthRow } from "../lib/monthly";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** Twelve months take 84 % of the table; the year and full-year columns share the rest. */
+const MONTH_WIDTH = "7%";
 
 export interface GridCell {
   value: number | null;
@@ -60,7 +62,11 @@ export function MonthGrid({
           <TableRow className="hover:bg-transparent">
             <TableHead className="bg-card sticky left-0 z-10 h-10 w-16">Year</TableHead>
             {MONTHS.map((m) => (
-              <TableHead key={m} className="h-10 px-2.5 text-end">
+              // An equal share for every month, so columns line up from table
+              // to table instead of following their widest value. Inline,
+              // because Wealthfolio's stylesheet has no w-1/12 class. A value
+              // that doesn't fit still widens its column; the table scrolls.
+              <TableHead key={m} className="h-10 px-2.5 text-end" style={{ width: MONTH_WIDTH }}>
                 {m}
               </TableHead>
             ))}
