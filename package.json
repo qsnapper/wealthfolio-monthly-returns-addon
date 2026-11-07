@@ -1,0 +1,64 @@
+{
+  "name": "monthly-returns-addon",
+  "version": "1.0.0",
+  "description": "Wealthfolio add-on: monthly returns and portfolio value by month",
+  "type": "module",
+  "private": true,
+  "main": "dist/addon.js",
+  "author": "qsnapper",
+  "license": "MIT",
+  "homepage": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon/issues"
+  },
+  "keywords": [
+    "wealthfolio",
+    "wealthfolio-addon",
+    "portfolio",
+    "returns",
+    "monthly",
+    "analytics"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "dev:server": "wealthfolio dev",
+    "clean": "rm -rf dist",
+    "package": "mkdir -p dist && find dist -name '*.map' -delete && zip -r dist/$npm_package_name-$npm_package_version.zip manifest.json dist/ assets/ README.md -x '*.map' -x '*.zip'",
+    "bundle": "pnpm clean && pnpm build && pnpm package",
+    "lint": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
+    "test": "node --test \"src/**/*.test.ts\""
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.0",
+    "@wealthfolio/addon-sdk": "^3.12.0",
+    "@wealthfolio/ui": "^3.12.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.90.20",
+    "@types/node": "^20.19.33",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@wealthfolio/addon-dev-tools": "^3.12.0",
+    "@wealthfolio/addon-sdk": "^3.12.0",
+    "@wealthfolio/ui": "^3.12.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "packageManager": "pnpm@12.18.0"
+}

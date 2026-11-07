@@ -1,0 +1,44 @@
+{
+  "id": "monthly-returns-addon",
+  "name": "Monthly Returns",
+  "version": "1.0.0",
+  "description": "Monthly returns and portfolio value, one year per row",
+  "author": "qsnapper",
+  "main": "dist/addon.js",
+  "sdkVersion": "3.12.0",
+  "minWealthfolioVersion": "3.12.0",
+  "enabled": true,
+  "contributes": {
+    "routes": [{ "id": "monthly-returns" }],
+    "links": {
+      "sidebar": [
+        {
+          "id": "monthly-returns",
+          "route": "monthly-returns",
+          "label": "Monthly Returns",
+          "icon": "calendar-dots",
+          "order": 150
+        }
+      ]
+    }
+  },
+  "hostDependencies": {
+    "@tanstack/react-query": "^5.90.0",
+    "@wealthfolio/addon-sdk": "^3.12.0",
+    "@wealthfolio/ui": "^3.12.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "permissions": [
+    {
+      "category": "portfolio",
+      "functions": ["getHistoricalValuations"],
+      "purpose": "Read daily portfolio and account values to build the monthly tables"
+    },
+    {
+      "category": "accounts",
+      "functions": ["getAll"],
+      "purpose": "List your accounts so you can view one account at a time"
+    }
+  ]
+}

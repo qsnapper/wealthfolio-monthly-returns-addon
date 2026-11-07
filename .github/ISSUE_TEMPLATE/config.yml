@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Wealthfolio itself
+    url: https://github.com/wealthfolio/wealthfolio/issues
+    about: Problems with Wealthfolio (not this add-on) belong in Wealthfolio's own tracker.

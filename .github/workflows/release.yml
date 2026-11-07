@@ -1,0 +1,68 @@
+name: Release
+
+# Push a tag like v0.1.8 to publish a GitHub release with the add-on zip.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Check everything before anything is uploaded.
+      - name: Tag matches package.json and manifest.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg=$(node -p "require('./package.json').version")
+          man=$(node -p "require('./manifest.json').version")
+          echo "tag=$tag package.json=$pkg manifest.json=$man"
+          [ "$tag" = "$pkg" ] && [ "$tag" = "$man" ] || {
+            echo "::error::tag $GITHUB_REF_NAME does not match package.json ($pkg) / manifest.json ($man)"
+            exit 1
+          }
+
+      - run: pnpm type-check
+
+      - run: pnpm test
+
+      - run: pnpm bundle
+
+      # The notes are this version's section of CHANGELOG.md. A missing
+      # section fails the release rather than publishing blank notes.
+      - name: Extract release notes
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v v="$version" '
+            $0 ~ "^## \\[" v "\\]" { found = 1; next }
+            found && /^(## |\[)/ { exit }
+            found { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
+          if [ ! -s "$RUNNER_TEMP/release-notes.md" ]; then
+            echo "::error::no CHANGELOG.md section for [$version]"
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/release-notes.md"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.zip \
+            --title "Monthly Returns $GITHUB_REF_NAME" \
+            --notes-file "$RUNNER_TEMP/release-notes.md" \
+            --verify-tag
